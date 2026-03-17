@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Sistema Escolar</title>
+
+<style>
+
+body{
+    background: linear-gradient(135deg,#cfe8ff,#eaf4ff);
+    font-family: Arial;
+    margin:0;
+}
+
+/* Título */
+
+.titulo{
+    text-align:center;
+    margin-top:60px;
+    color:#0b3d91;
+}
+
+.titulo h1{
+    font-size:32px;
+}
+
+/* Formulário */
+
+.formulario{
+    background:white;
+    width:620px;
+    padding:30px;
+    border-radius:12px;
+    border:2px solid #0b3d91;
+    margin:auto;
+    margin-top:30px;
+    box-shadow:0px 10px 25px rgba(0,0,0,0.15);
+    transition:0.3s;
+}
+
+.formulario:hover{
+    transform:scale(1.01);
+}
+
+/* Inputs */
+
+input, select{
+    width:96%;
+    padding:10px;
+    border-radius:6px;
+    border:1px solid #8fc5ff;
+    transition:0.3s;
+}
+
+input:focus, select:focus{
+    border:1px solid #0b3d91;
+    box-shadow:0px 0px 6px rgba(11,61,145,0.3);
+    outline:none;
+}
+
+/* Radios */
+
+input[type="radio"]{
+    width:auto;
+}
+
+/* Botões */
+
+button{
+    background:#0b3d91;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:6px;
+    cursor:pointer;
+    margin-right:10px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#072a63;
+    transform:translateY(-2px);
+    box-shadow:0px 5px 10px rgba(0,0,0,0.2);
+}
+
+/* Resultado */
+
+.resultado{
+    background:black;
+    color:white;
+    width:620px;
+    padding:25px;
+    border-radius:12px;
+    margin:auto;
+    margin-top:40px;
+    display:none;
+    border-left:8px solid #0b3d91;
+    box-shadow:0px 10px 20px rgba(0,0,0,0.3);
+    animation:aparecer 0.6s ease;
+}
+
+.resultado h2{
+    color:#8fc5ff;
+}
+
+/* Animação */
+
+@keyframes aparecer{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0px);
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="titulo">
+
+<h1>EEB Dom Jaime de Barros Câmara</h1>
+<p>Preencha o formulário abaixo para cadastrar um novo aluno</p>
+
+</div>
+
+
+<div class="formulario">
+
+<form>
+
+<label>Nome:</label><br>
+<input type="text" id="nome"><br><br>
+
+<label>Data de Nascimento:</label><br>
+<input type="date" id="dataNasc"><br><br>
+
+<label>CPF:</label><br>
+<input type="text" id="cpf"><br><br>
+
+<label>Email:</label><br>
+<input type="email" id="email"><br><br>
+
+<label>Telefone:</label><br>
+<input type="text" id="telefone"><br><br>
+
+<label>CPF da Mãe:</label><br>
+<input type="text" id="cpfMae"><br><br>
+
+<label>CPF do Pai:</label><br>
+<input type="text" id="cpfPai"><br><br>
+
+<label>Endereço:</label><br>
+<input type="text" id="endereco"><br><br>
+
+<label>Série:</label><br>
+
+<select id="serie">
+
+<option>6º Ano</option>
+<option>7º Ano</option>
+<option>8º Ano</option>
+<option>9º Ano</option>
+<option>1º Ensino Médio</option>
+<option>2º Ensino Médio</option>
+<option>3º Ensino Médio</option>
+
+</select>
+
+<br><br>
+
+<label>Turno:</label><br>
+
+<input type="radio" name="turno" value="Matutino"> Matutino
+<input type="radio" name="turno" value="Vespertino"> Vespertino
+<input type="radio" name="turno" value="Noturno"> Noturno
+
+<br><br>
+
+<button type="button" onclick="mostrarDados()">Cadastrar</button>
+<button type="reset">Limpar</button>
+
+</form>
+
+</div>
+
+
+<div id="resultado" class="resultado"></div>
+
+
+<script>
+
+function mostrarDados(){
+
+let nome = document.getElementById("nome").value;
+let dataNasc = document.getElementById("dataNasc").value;
+let cpf = document.getElementById("cpf").value;
+let email = document.getElementById("email").value;
+let telefone = document.getElementById("telefone").value;
+let cpfMae = document.getElementById("cpfMae").value;
+let cpfPai = document.getElementById("cpfPai").value;
+let endereco = document.getElementById("endereco").value;
+let serie = document.getElementById("serie").value;
+
+let turnoSelecionado = document.querySelector('input[name="turno"]:checked');
+
+if(nome=="" || dataNasc=="" || cpf=="" || email==""){
+alert("Preencha os campos obrigatórios!");
+return;
+}
+
+let turno = "";
+
+if(turnoSelecionado){
+turno = turnoSelecionado.value;
+}else{
+turno = "Não informado";
+}
+
+let nascimento = new Date(dataNasc);
+let hoje = new Date();
+let idade = hoje.getFullYear() - nascimento.getFullYear();
+
+let resultado = document.getElementById("resultado");
+
+resultado.innerHTML =
+
+"<h2>Dados informados</h2>" +
+
+"Nome: " + nome + "<br>" +
+"Data de Nascimento: " + dataNasc + "<br>" +
+"Idade: " + idade + "<br>" +
+"CPF: " + cpf + "<br>" +
+"Email: " + email + "<br>" +
+"Telefone: " + telefone + "<br>" +
+"CPF da Mãe: " + cpfMae + "<br>" +
+"CPF do Pai: " + cpfPai + "<br>" +
+"Endereço: " + endereco + "<br>" +
+"Série: " + serie + "<br>" +
+"Turno: " + turno;
+
+resultado.style.display = "block";
+
+}
+
+</script>
+
+</body>
+
+</html>
