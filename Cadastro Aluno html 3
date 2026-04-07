@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Escolar - EEB Dom Jaime</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #cfe8ff, #eaf4ff);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding-bottom: 50px;
+        }
+
+        /* Menu */
+        .menu {
+            background-color: #0b3d91;
+            color: #cfe8ff;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .menu-centro {
+            display: flex;
+            gap: 20px;
+        }
+
+        .menu-centro span {
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .menu-centro span:hover {
+            color: white;
+        }
+
+        .menu-direita {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Título */
+        .titulo {
+            text-align: center;
+            margin-top: 40px;
+            color: #0b3d91;
+        }
+
+        /* Formulário */
+        .pagina {
+            background: white;
+            max-width: 600px;
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid #0b3d91;
+            margin: 30px auto;
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
+            transition: 0.3s;
+            display: none;
+        }
+
+        .pagina-ativa{
+            display: block;
+        }
+
+        /* Inputs e Selects */
+        label {
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #8fc5ff;
+            box-sizing: border-box; /* Garante que o padding não aumente a largura */
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+
+        input:focus, select:focus {
+            border: 1px solid #0b3d91;
+            box-shadow: 0px 0px 6px rgba(11, 61, 145, 0.3);
+            outline: none;
+        }
+
+        .radio-group {
+            margin-bottom: 20px;
+        }
+
+        /* Botões */
+        .botoes {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            flex: 1;
+            background: #0b3d91;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button[type="reset"] {
+            background: #6c757d;
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Resultado */
+        .resultado {
+            background: #1a1a1a;
+            color: #e0e0e0;
+            max-width: 600px;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 40px auto;
+            display: none;
+            border-left: 8px solid #0b3d91;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+            animation: aparecer 0.6s ease;
+            line-height: 1.6;
+        }
+
+        .resultado h2 {
+            color: #8fc5ff;
+            margin-top: 0;
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0px); }
+        }
+        .menu span{cursor: pointer;}
+
+    </style>
+</head>
+
+<body>
+
+    <div class="menu">
+        <div class="menu-esquerda"><strong>SISTEMA ESCOLAR</strong></div>
+        <div class="menu-centro">
+            <span>Início</span>
+            <span onclick="navegar('alunos')">Alunos</span>
+            <span onclick="navegar('professores')">Professores</span>
+            <span onclick="navegar('funcionarios')">Funcionários</span>
+        </div>
+        <div class="menu-direita">
+            <span>Login</span>
+            <span class="material-icons">account_circle</span>
+        </div>
+    </div>
+
+    <div class="titulo">
+        <h1>EEB Dom Jaime de Barros Câmara</h1>
+        <p>Preencha o formulário abaixo para cadastrar um novo aluno</p>
+    </div>
+
+    <!---------------------------------------------------------------------ALUNOS----------------------------------------------------------------------------------->
+
+            <div id="alunos" class="pagina pagina-ativa">
+
+
+        <form id="formAluno">
+            <label for="nome">Nome Completo:</label>
+            <input type="text" id="nome" placeholder="Ex: João Silva" required>
+
+            <label for="dataNasc">Data de Nascimento:</label>
+            <input type="date" id="dataNasc" required>
+
+            <label for="cpf">CPF:</label>
+            <input type="text" id="cpf" placeholder="000.000.000-00">
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" placeholder="exemplo@email.com">
+
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone">
+
+            <label for="cpfMae">CPF da Mãe:</label>
+            <input type="text" id="cpfMae">
+
+            <label for="cpfPai">CPF do Pai:</label>
+            <input type="text" id="cpfPai">
+
+            <label for="endereco">Endereço:</label>
+            <input type="text" id="endereco">
+
+            <label for="serie">Série:</label>
+            <select id="serie">
+                <option>6º Ano</option>
+                <option>7º Ano</option>
+                <option>8º Ano</option>
+                <option>9º Ano</option>
+                <option>1º Ensino Médio</option>
+                <option>2º Ensino Médio</option>
+                <option>3º Ensino Médio</option>
+            </select>
+            :</label>
+            <div class="radio-group">
+                <input type="radio" name="turno" value="Matutino"> Matutino
+                <input type="radio" name="turno" value="Vespertino"> Vespertino
+                <input type="radio" name="turno" value="Noturno"> Noturno
+            </div>
+
+            <div class="botoes">
+                <button type="button" onclick="mostrarDados()">Cadastrar</button>
+                <button type="reset" onclick="document.getElementById('resultado').style.display='none'">Limpar</button>
+            </div>
+        </form>
+    </div>
+
+<!-----------------------------------------------------------PROFESSORES---------------------------------------------------------------->
+
+    <div id="professores" class="pagina">
+
+
+        <form id="formAluno">
+            <label for="nome">Nome Completo:</label>
+            <input type="text" id="nome" placeholder="Ex: João Silva" required>
+
+            <label for="dataNasc">Data de Nascimento:</label>
+            <input type="date" id="dataNasc" required>
+
+            <label for="cpf">CPF:</label>
+            <input type="text" id="cpf" placeholder="000.000.000-00">
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" placeholder="exemplo@email.com">
+
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone">
+
+           
+            <label for="endereco">Endereço:</label>
+            <input type="text" id="endereco">
+
+            <label for="serie">Série:</label>
+            <select id="serie">
+                <option>6º Ano</option>
+                <option>7º Ano</option>
+                <option>8º Ano</option>
+                <option>9º Ano</option>
+                <option>1º Ensino Médio</option>
+                <option>2º Ensino Médio</option>
+                <option>3º Ensino Médio</option>
+            </select>
+            :</label>
+            <div class="radio-group">
+                <input type="radio" name="turno" value="Matutino"> Matutino
+                <input type="radio" name="turno" value="Vespertino"> Vespertino
+                <input type="radio" name="turno" value="Noturno"> Noturno
+            </div>
+
+            <div class="botoes">
+                <button type="button" onclick="mostrarDados()">Cadastrar</button>
+                <button type="reset" onclick="document.getElementById('resultado').style.display='none'">Limpar</button>
+            </div>
+        </form>
+    </div>
+
+
+    <!----------------------------------------------------------FUNCIONARIOS----------------------------------------------------------------------------------------->
+    <div id="funcionarios" class="pagina">
+
+
+        <form id="formAluno">
+            <label for="nome">Nome Completo:</label>
+            <input type="text" id="nome" placeholder="Ex: João Silva" required>
+
+            <label for="dataNasc">Data de Nascimento:</label>
+            <input type="date" id="dataNasc" required>
+
+            <label for="cpf">CPF:</label>
+            <input type="text" id="cpf" placeholder="000.000.000-00">
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" placeholder="exemplo@email.com">
+
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone">
+
+            
+
+            <label for="endereco">Endereço:</label>
+            <input type="text" id="endereco">
+
+            
+            :</label>
+            <div class="radio-group">
+                <input type="radio" name="turno" value="Matutino"> Matutino
+                <input type="radio" name="turno" value="Vespertino"> Vespertino
+                <input type="radio" name="turno" value="Noturno"> Noturno
+            </div>
+
+            <div class="botoes">
+                <button type="button" onclick="mostrarDados()">Cadastrar</button>
+                <button type="reset" onclick="document.getElementById('resultado').style.display='none'">Limpar</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="resultado" class="resultado"></div>
+
+    <script> 
+        function navegar(pagina){
+
+            let paginas = document.getElementsByClassName("pagina");
+
+            for(let i = 0; i<paginas.length;i++){
+                paginas[i].classList.remove("pagina-ativa");
+
+            }
+
+
+            document.getElementById(pagina).classList.add("pagina-ativa")
+
+
+
+
+        }
+        function mostrarDados() {
+            let nome = document.getElementById("nome").value;
+            let dataNasc = document.getElementById("dataNasc").value;
+            let cpf = document.getElementById("cpf").value;
+            let email = document.getElementById("email").value;
+            let telefone = document.getElementById("telefone").value;
+            let cpfMae = document.getElementById("cpfMae").value;
+            let cpfPai = document.getElementById("cpfPai").value;
+            let endereco = document.getElementById("endereco").value;
+            let serie = document.getElementById("serie").value;
+            let turnoSelecionado = document.querySelector('input[name="turno"]:checked');
+
+            if (nome == "" || dataNasc == "" || cpf == "") {
+                alert("Por favor, preencha os campos obrigatórios (Nome, Data e CPF)!");
+                return;
+            }
+
+            // Cálculo preciso de idade
+            let hoje = new Date();
+            let nasc = new Date(dataNasc);
+            let idade = hoje.getFullYear() - nasc.getFullYear();
+            let m = hoje.getMonth() - nasc.getMonth();
+            if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) {
+                idade--;
+            }
+
+            let turno = turnoSelecionado ? turnoSelecionado.value : "Não informado";
+
+            let resultadoDiv = document.getElementById("resultado");
+            resultadoDiv.innerHTML = `
+                <h2><span class="material-icons" style="vertical-align: bottom">check_circle</span> Dados Cadastrados</h2>
+                <p><strong>Nome:</strong> ${nome}</p>
+                <p><strong>Idade:</strong> ${idade} anos</p>
+                <p><strong>CPF:</strong> ${cpf}</p>
+                <p><strong>E-mail:</strong> ${email}</p>
+                <p><strong>Série:</strong> ${serie}</p>
+                <p><strong>Turno:</strong> ${turno}</p>
+                <hr style="border: 0; border-top: 1px solid #444">
+                <p><small>Endereço: ${endereco}</small></p>
+            `;
+
+            resultadoDiv.style.display = "block";
+            // Rola a página até o resultado
+            resultadoDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
